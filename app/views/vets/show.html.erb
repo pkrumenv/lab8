@@ -1,2 +1,34 @@
-<h1>Vets#show</h1>
-<p>Find me in app/views/vets/show.html.erb</p>
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-success text-white">
+    <h2 class="mb-0">Dr. <%= @vet.name %></h2>
+  </div>
+  <div class="card-body">
+    <p><strong>Specialization:</strong> <%= @vet.specialization %></p>
+    <p><strong>Email:</strong> <%= @vet.email %></p>
+    <p><strong>Phone:</strong> <%= @vet.phone %></p>
+  </div>
+</div>
+
+<h3 class="mb-3">Assigned Appointments</h3>
+<table class="table table-hover shadow-sm">
+  <thead class="table-light">
+    <tr>
+      <th>Date</th>
+      <th>Pet</th>
+      <th>Reason</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vet.appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.date.strftime("%B %d, %Y") %></td>
+        <td><%= link_to appointment.pet.name, pet_path(appointment.pet) %></td>
+        <td><%= appointment.reason %></td>
+        <td><%= link_to "Details", appointment_path(appointment), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary mt-2" %>

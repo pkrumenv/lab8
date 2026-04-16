@@ -1,2 +1,42 @@
-<h1>Pets#show</h1>
-<p>Find me in app/views/pets/show.html.erb</p>
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-info text-dark">
+    <h2 class="mb-0">Pet: <%= @pet.name %></h2>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Species:</strong> <%= @pet.species %></p>
+        <p><strong>Breed:</strong> <%= @pet.breed %></p>
+        <p><strong>Date of Birth:</strong> <%= @pet.date_of_birth.strftime("%B %d, %Y") %></p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Weight:</strong> <%= @pet.weight %> kg</p>
+        <p><strong>Owner:</strong> <%= link_to @pet.owner.name, owner_path(@pet.owner) %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 class="mb-3">Appointment History</h3>
+<table class="table table-hover shadow-sm">
+  <thead class="table-light">
+    <tr>
+      <th>Date</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pet.appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.date.strftime("%B %d, %Y") %></td>
+        <td><%= appointment.reason %></td>
+        <td><span class="badge bg-secondary"><%= {0 => "Scheduled", 1 => "In Progress", 2 => "Completed", 3 => "Cancelled"}[appointment.status] %></span></td>
+        <td><%= link_to "View Details", appointment_path(appointment), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Pets', pets_path, class: "btn btn-secondary mt-2" %>

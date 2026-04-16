@@ -1,2 +1,64 @@
-<h1>Appointments#show</h1>
-<p>Find me in app/views/appointments/show.html.erb</p>
+<div class="card mb-4 shadow-sm border-primary">
+  <div class="card-header bg-primary text-white">
+    <h2 class="mb-0">Appointment Details</h2>
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <strong>Date:</strong><br>
+        <%= @appointment.date.strftime("%B %d, %Y") %>
+      </div>
+      <div class="col-md-4">
+        <strong>Pet:</strong><br>
+        <%= link_to @appointment.pet.name, pet_path(@appointment.pet) %>
+      </div>
+      <div class="col-md-4">
+        <strong>Veterinarian:</strong><br>
+        <%= link_to @appointment.vet.name, vet_path(@appointment.vet) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <strong>Reason for visit:</strong><br>
+        <%= @appointment.reason %>
+      </div>
+      <div class="col-md-4">
+        <strong>Status:</strong><br>
+        <span class="badge bg-primary fs-6"><%= {0 => "Scheduled", 1 => "In Progress", 2 => "Completed", 3 => "Cancelled"}[@appointment.status] %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 class="mb-3">Treatments Administered</h3>
+<div class="table-responsive">
+  <table class="table table-bordered align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Treatment Name</th>
+        <th>Medication</th>
+        <th>Dosage</th>
+        <th>Administered At</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointment.treatments.each do |treatment| %>
+        <tr>
+          <td class="fw-bold"><%= treatment.name %></td>
+          <td><%= treatment.medication %></td>
+          <td><%= treatment.dosage %></td>
+          <td><%= treatment.administered_at.strftime("%I:%M %p") %></td>
+          <td class="text-muted small"><%= treatment.notes %></td>
+        </tr>
+      <% end %>
+      <% if @appointment.treatments.empty? %>
+        <tr>
+          <td colspan="5" class="text-center text-muted italic">No treatments recorded for this appointment.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Back to Appointments', appointments_path, class: "btn btn-secondary mt-3" %>

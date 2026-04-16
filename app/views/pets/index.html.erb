@@ -1,2 +1,30 @@
-<h1>Pets#index</h1>
-<p>Find me in app/views/pets/index.html.erb</p>
+<div class="mb-4">
+  <h1>Pets</h1>
+</div>
+
+<table class="table table-striped table-hover shadow-sm">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Species</th>
+      <th>Breed</th>
+      <th>Owner Name</th>
+      <th>Date of Birth</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pets.each do |pet| %>
+      <tr>
+        <td><%= link_to pet.name, pet_path(pet), class: "text-decoration-none fw-bold" %></td>
+        <td><%= pet.species %></td>
+        <td><%= pet.breed %></td>
+        <td><%= pet.owner.name %></td>
+        <td><%= pet.date_of_birth.strftime("%B %d, %Y") %></td>
+        <td>
+          <%= link_to "View Details", pet_path(pet), class: "btn btn-sm btn-outline-primary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,2 +1,24 @@
-<h1>Owners#index</h1>
-<p>Find me in app/views/owners/index.html.erb</p>
+<h1>Owners</h1>
+
+<table class="table table-striped table-hover mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Number of Pets</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @owners.each do |owner| %>
+      <tr>
+        <td><%= link_to owner.name, owner_path(owner) %></td>
+        <td><%= owner.email %></td>
+        <td><%= owner.phone %></td>
+        <td><%= owner.pets.count %></td>
+        <td><%= link_to "View Details", owner_path(owner), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
