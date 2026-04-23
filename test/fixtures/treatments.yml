@@ -1,17 +1,15 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  appointment: one
-  name: MyString
-  medication: MyString
-  dosage: MyString
-  notes: MyText
-  administered_at: 2026-04-09 13:17:01
+  appointment: two
+  name: Rabies Vaccine
+  medication: Rabies
+  dosage: 1 dose
+  notes: Patient behaved well
+  administered_at: <%= Time.current %>
 
 two:
   appointment: two
-  name: MyString
-  medication: MyString
-  dosage: MyString
-  notes: MyText
-  administered_at: 2026-04-09 13:17:01
+  name: Deworming
+  medication: Pill
+  dosage: 1 pill
+  notes: Taken with food
+  administered_at: <%= Time.current %>

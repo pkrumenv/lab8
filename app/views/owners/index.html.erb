@@ -13,7 +13,7 @@
   <tbody>
     <% @owners.each do |owner| %>
       <tr>
-        <td><%= link_to owner.name, owner_path(owner) %></td>
+        <td><%= owner.first_name %> <%= owner.last_name %></td>
         <td><%= owner.email %></td>
         <td><%= owner.phone %></td>
         <td><%= owner.pets.count %></td>

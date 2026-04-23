@@ -1,15 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  pet: one
+  pet: one  # ESTO ES CLAVE: hace referencia al pet "one"
   vet: one
-  date: 2026-04-09 13:16:44
-  reason: MyString
-  status: 1
+  date: <%= 2.days.from_now %>
+  reason: Checkup
+  status: scheduled
 
 two:
-  pet: two
+  pet: two  # Hace referencia al pet "two"
   vet: two
-  date: 2026-04-09 13:16:44
-  reason: MyString
-  status: 1
+  date: <%= 1.day.ago %>
+  reason: Vaccine
+  status: completed
