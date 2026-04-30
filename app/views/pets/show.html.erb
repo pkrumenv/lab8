@@ -1,42 +1,46 @@
-<div class="card mb-4 shadow-sm">
-  <div class="card-header bg-info text-dark">
-    <h2 class="mb-0">Pet: <%= @pet.name %></h2>
+<div class="card mb-4 shadow-sm border-success">
+  <div class="card-header bg-success text-white">
+    <h2 class="mb-0"><%= @pet.name %></h2>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-6">
         <p><strong>Species:</strong> <%= @pet.species %></p>
         <p><strong>Breed:</strong> <%= @pet.breed %></p>
-        <p><strong>Date of Birth:</strong> <%= @pet.date_of_birth.strftime("%B %d, %Y") %></p>
+        <p><strong>Weight:</strong> <%= @pet.weight %> kg</p>
       </div>
       <div class="col-md-6">
-        <p><strong>Weight:</strong> <%= @pet.weight %> kg</p>
-        <p><strong>Owner:</strong> <%= link_to @pet.owner.name, owner_path(@pet.owner) %></p>
+        <p><strong>Owner:</strong> <%= link_to @pet.owner.first_name, @pet.owner %></p>
+        <p><strong>Birthday:</strong> <%= @pet.date_of_birth %></p>
       </div>
     </div>
   </div>
 </div>
 
-<h3 class="mb-3">Appointment History</h3>
-<table class="table table-hover shadow-sm">
-  <thead class="table-light">
-    <tr>
-      <th>Date</th>
-      <th>Reason</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @pet.appointments.each do |appointment| %>
+<h3>Appointment History</h3>
+<div class="table-responsive mb-4">
+  <table class="table table-sm">
+    <thead>
       <tr>
-        <td><%= appointment.date.strftime("%B %d, %Y") %></td>
-        <td><%= appointment.reason %></td>
-        <td><span class="badge bg-secondary"><%= {0 => "Scheduled", 1 => "In Progress", 2 => "Completed", 3 => "Cancelled"}[appointment.status] %></span></td>
-        <td><%= link_to "View Details", appointment_path(appointment), class: "btn btn-sm btn-outline-primary" %></td>
+        <th>Date</th>
+        <th>Reason</th>
+        <th>Status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @pet.appointments.each do |app| %>
+        <tr>
+          <td><%= link_to app.date.strftime("%F"), app %></td>
+          <td><%= app.reason %></td>
+          <td><span class="badge bg-secondary"><%= app.status %></span></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<%= link_to 'Back to Pets', pets_path, class: "btn btn-secondary mt-2" %>
+<div class="d-flex gap-2">
+  <%= link_to 'Edit Pet', edit_pet_path(@pet), class: "btn btn-warning" %>
+  <%= button_to 'Delete Pet', @pet, method: :delete, data: { turbo_confirm: "Delete this pet history?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to Pets', pets_path, class: "btn btn-secondary" %>
+</div>

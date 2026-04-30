@@ -1,13 +1,13 @@
 one:
-  pet: one  # ESTO ES CLAVE: hace referencia al pet "one"
-  vet: one
-  date: <%= 2.days.from_now %>
-  reason: Checkup
+  date: <%= 1.day.from_now %>
+  reason: Annual checkup
   status: scheduled
+  pet: one
+  vet: one
 
 two:
-  pet: two  # Hace referencia al pet "two"
-  vet: two
-  date: <%= 1.day.ago %>
-  reason: Vaccine
+  date: <%= 2.days.ago %>
+  reason: Surgery followup
   status: completed
+  pet: two
+  vet: two

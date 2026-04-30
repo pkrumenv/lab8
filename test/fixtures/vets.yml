@@ -1,13 +1,13 @@
 one:
-  first_name: Doctor
-  last_name: Who
-  email: doc@vet.com
-  phone: "111111111"
-  specialization: "General"
+  first_name: Sarah
+  last_name: Connor
+  specialization: Surgery
+  email: sarah.connor@vetclinic.com
+  phone: 555-0300
 
 two:
-  first_name: Doctor
-  last_name: Strange
-  email: strange@vet.com
-  phone: "222222222"
-  specialization: "Surgery"
+  first_name: Alan
+  last_name: Grant
+  specialization: General Practice
+  email: alan.grant@vetclinic.com
+  phone: 555-0400

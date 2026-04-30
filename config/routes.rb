@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
   root "owners#index"
   
-  resources :owners, only: [:index, :show]
-  resources :pets, only: [:index, :show]
-  resources :vets, only: [:index, :show]
-  resources :appointments, only: [:index, :show]
+  resources :owners
+  resources :pets
+  resources :vets
+  resources :appointments
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  resources :appointments do
+    resources :treatments, only: [:new, :create, :edit, :update, :destroy]
+  end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

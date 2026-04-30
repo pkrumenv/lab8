@@ -1,15 +1,15 @@
-one: # ESTE ES EL PET "one"
-  owner: one
-  name: Fido
-  species: dog
-  breed: Pug
+one:
+  name: Rex
+  species: Dog
+  breed: German Shepherd
+  weight: 30.5
   date_of_birth: 2020-01-01
-  weight: 10
+  owner: one # Se conecta con el owner "one" de arriba
 
-two: # ESTE ES EL PET "two"
-  owner: two
+two:
   name: Whiskers
-  species: cat
-  breed: Persian
-  date_of_birth: 2021-01-01
-  weight: 5
+  species: Cat
+  breed: Siamese
+  weight: 4.2
+  date_of_birth: 2021-05-15
+  owner: two

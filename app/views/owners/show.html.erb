@@ -1,31 +1,27 @@
-<div class="card mb-4 shadow-sm">
-  <div class="card-header bg-primary text-white">
-    <h2 class="mb-0">Owner Details</h2>
+<div class="card mb-4 shadow-sm border-info">
+  <div class="card-header bg-info text-white">
+    <h2 class="mb-0">Owner Profile</h2>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-6">
-        <p><strong>Full Name:</strong> <%= @owner.name %></p>
-        <p><strong>Email:</strong> <%= @owner.email %></p>
-      </div>
-      <div class="col-md-6">
-        <p><strong>Phone:</strong> <%= @owner.phone %></p>
-        <p><strong>Address:</strong> <%= @owner.address %></p>
-      </div>
-    </div>
+    <p><strong>Name:</strong> <%= @owner.first_name %> <%= @owner.last_name %></p>
+    <p><strong>Email:</strong> <%= @owner.email %></p>
+    <p><strong>Phone:</strong> <%= @owner.phone %></p>
   </div>
 </div>
 
-<h3 class="mb-3">Registered Pets</h3>
-<div class="list-group shadow-sm">
-  <% @owner.pets.each do |pet| %>
-    <%= link_to pet_path(pet), class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
-      <div>
-        <strong><%= pet.name %></strong> - <%= pet.species %> (<%= pet.breed %>)
-      </div>
-      <span class="btn btn-sm btn-outline-secondary">View Pet</span>
+<h3>Registered Pets</h3>
+<div class="list-group mb-4">
+  <% if @owner.pets.any? %>
+    <% @owner.pets.each do |pet| %>
+      <%= link_to pet.name, pet, class: "list-group-item list-group-item-action" %>
     <% end %>
+  <% else %>
+    <p class="text-muted">This owner has no pets registered.</p>
   <% end %>
 </div>
 
-<%= link_to 'Back to Owners', owners_path, class: "btn btn-secondary mt-4" %>
+<div class="d-flex gap-2">
+  <%= link_to 'Edit Info', edit_owner_path(@owner), class: "btn btn-warning" %>
+  <%= button_to 'Delete Owner', @owner, method: :delete, data: { turbo_confirm: "Warning: This will also delete their pets. Continue?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to List', owners_path, class: "btn btn-secondary" %>
+</div>

@@ -1,15 +1,7 @@
 one:
-  appointment: two
   name: Rabies Vaccine
-  medication: Rabies
+  medication: Rabisin
   dosage: 1 dose
-  notes: Patient behaved well
   administered_at: <%= Time.current %>
-
-two:
-  appointment: two
-  name: Deworming
-  medication: Pill
-  dosage: 1 pill
-  notes: Taken with food
-  administered_at: <%= Time.current %>
+  notes: Patient handled it well
+  appointment: one

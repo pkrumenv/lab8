@@ -1,34 +1,18 @@
-<div class="card mb-4 shadow-sm">
-  <div class="card-header bg-success text-white">
-    <h2 class="mb-0">Dr. <%= @vet.name %></h2>
+<div class="card mb-4 shadow-sm border-warning">
+  <div class="card-header bg-warning text-dark text-center">
+    <h2 class="mb-0">Veterinarian Profile</h2>
   </div>
-  <div class="card-body">
-    <p><strong>Specialization:</strong> <%= @vet.specialization %></p>
-    <p><strong>Email:</strong> <%= @vet.email %></p>
+  <div class="card-body text-center">
+    <h3 class="display-6">Dr. <%= @vet.first_name %> <%= @vet.last_name %></h3>
+    <p class="badge bg-dark fs-5"><%= @vet.specialization %></p>
+    <hr>
+    <p><strong>Contact Email:</strong> <%= @vet.email %></p>
     <p><strong>Phone:</strong> <%= @vet.phone %></p>
   </div>
 </div>
 
-<h3 class="mb-3">Assigned Appointments</h3>
-<table class="table table-hover shadow-sm">
-  <thead class="table-light">
-    <tr>
-      <th>Date</th>
-      <th>Pet</th>
-      <th>Reason</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @vet.appointments.each do |appointment| %>
-      <tr>
-        <td><%= appointment.date.strftime("%B %d, %Y") %></td>
-        <td><%= link_to appointment.pet.name, pet_path(appointment.pet) %></td>
-        <td><%= appointment.reason %></td>
-        <td><%= link_to "Details", appointment_path(appointment), class: "btn btn-sm btn-outline-primary" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary mt-2" %>
+<div class="d-flex justify-content-center gap-2">
+  <%= link_to 'Edit Profile', edit_vet_path(@vet), class: "btn btn-warning" %>
+  <%= button_to 'Delete Profile', @vet, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary" %>
+</div>

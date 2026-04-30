@@ -2,12 +2,10 @@ one:
   first_name: John
   last_name: Doe
   email: john@example.com
-  phone: "123456789"
-  address: "123 Main St"
+  phone: 555-0100
 
 two:
   first_name: Jane
   last_name: Smith
   email: jane@example.com
-  phone: "987654321"
-  address: "456 Oak St"
+  phone: 555-0200

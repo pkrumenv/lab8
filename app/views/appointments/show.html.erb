@@ -30,7 +30,11 @@
   </div>
 </div>
 
-<h3 class="mb-3">Treatments Administered</h3>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Treatments Administered</h3>
+  <%= link_to 'New Treatment', new_appointment_treatment_path(@appointment), class: "btn btn-success" %>
+</div>
+
 <div class="table-responsive">
   <table class="table table-bordered align-middle">
     <thead class="table-light">
@@ -40,25 +44,38 @@
         <th>Dosage</th>
         <th>Administered At</th>
         <th>Notes</th>
-      </tr>
+        <th>Actions</th> </tr>
     </thead>
     <tbody>
       <% @appointment.treatments.each do |treatment| %>
-        <tr>
-          <td class="fw-bold"><%= treatment.name %></td>
-          <td><%= treatment.medication %></td>
-          <td><%= treatment.dosage %></td>
-          <td><%= treatment.administered_at.strftime("%I:%M %p") %></td>
-          <td class="text-muted small"><%= treatment.notes %></td>
-        </tr>
+        <% if treatment.persisted? %>
+          <tr>
+            <td class="fw-bold"><%= treatment.name %></td>
+            <td><%= treatment.medication %></td>
+            <td><%= treatment.dosage %></td>
+            <td><%= treatment.administered_at.strftime("%I:%M %p") %></td>
+            <td class="text-muted small"><%= treatment.notes %></td>
+            <td>
+              <div class="d-flex gap-2">
+                <%= link_to 'Edit', edit_appointment_treatment_path(@appointment, treatment), class: "btn btn-sm btn-outline-primary" %>
+                <%= button_to 'Delete', appointment_treatment_path(@appointment, treatment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
+      
       <% if @appointment.treatments.empty? %>
         <tr>
-          <td colspan="5" class="text-center text-muted italic">No treatments recorded for this appointment.</td>
+          <td colspan="6" class="text-center text-muted fst-italic">No treatments recorded for this appointment.</td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 
-<%= link_to 'Back to Appointments', appointments_path, class: "btn btn-secondary mt-3" %>
+<div class="d-flex gap-2 mt-4">
+  <%= link_to 'Edit Appointment', edit_appointment_path(@appointment), class: "btn btn-warning" %>
+  <%= button_to 'Delete Appointment', appointment_path(@appointment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to Appointments', appointments_path, class: "btn btn-secondary" %>
+</div>
