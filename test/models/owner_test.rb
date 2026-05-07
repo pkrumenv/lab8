@@ -6,7 +6,7 @@ class OwnerTest < ActiveSupport::TestCase
       first_name: "John",
       last_name: "Doe",
       phone: "555-1234",
-      email: "JOHN@EXAMPLE.COM"
+      email: "mailvalido@vet.com"
     )
   end
 

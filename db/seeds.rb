@@ -14,10 +14,14 @@ owner3 = Owner.create!(first_name: "Andres", last_name: "Howard", email: "anhow@
 puts "Creando Pets..."
 # Nota: Especies en minúscula para pasar la validación
 pet1 = owner1.pets.create!(name: "Advincula", species: "dog", breed: "Pug", date_of_birth: "2020-01-01", weight: 25)
-pet2 = owner1.pets.create!(name: "Pichula", species: "cat", breed: "Black", date_of_birth: "2019-05-10", weight: 5)
+pet2 = owner1.pets.create!(name: "Pelusa", species: "cat", breed: "Black", date_of_birth: "2019-05-10", weight: 5)
 pet3 = owner2.pets.create!(name: "Folagor", species: "rabbit", breed: "Mini Lop", date_of_birth: "2021-03-15", weight: 2)
-pet4 = owner3.pets.create!(name: "Rene", species: "dog", breed: "Bulldog", date_of_birth: "2018-07-20", weight: 20)
+pet4 = owner3.pets.create!(name: "Rene", species: "dog", breed: "Dachshund", date_of_birth: "2018-07-20", weight: 20)
 pet5 = owner2.pets.create!(name: "Whatley", species: "cat", breed: "Persian", date_of_birth: "2022-02-02", weight: 4)
+
+pet1.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'pug.webp')), filename: 'pug.webp', content_type: 'image/webp')
+pet2.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'gato.webp')), filename: 'gato.webp', content_type: 'image/webp')
+pet4.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'salchicha.webp')), filename: 'salchicha.webp', content_type: 'image/webp')
 
 puts "Creando Vets..."
 vet1 = Vet.create!(first_name: "Juan", last_name: "Perez", email: "jupe@vet.com", phone: "111111111", specialization: "General")
@@ -31,11 +35,91 @@ appt3 = Appointment.create!(pet: pet3, vet: vet2, date: 3.days.ago, reason: "Inj
 appt4 = Appointment.create!(pet: pet4, vet: vet2, date: 1.month.from_now, reason: "Surgery", status: :cancelled)
 appt5 = Appointment.create!(pet: pet5, vet: vet1, date: 2.weeks.ago, reason: "Dermatitis", status: :completed)
 
-puts "Creando Treatments..."
-Treatment.create!(appointment: appt2, name: "Vaccine", medication: "Rabies", dosage: "1 dose", notes: "All good", administered_at: Time.current)
-Treatment.create!(appointment: appt3, name: "Bandage", medication: "Antibiotic", dosage: "2x daily", notes: "Healing well", administered_at: Time.current)
-Treatment.create!(appointment: appt5, name: "Cream", medication: "Skin ointment", dosage: "Apply daily", notes: "Might die", administered_at: Time.current)
-Treatment.create!(appointment: appt2, name: "Deworming", medication: "Dewormer", dosage: "Single dose", notes: "It was like the Eater of Worlds", administered_at: Time.current)
-Treatment.create!(appointment: appt3, name: "Pain Relief", medication: "Ibuprofen", dosage: "As needed", notes: "Observe behavior", administered_at: Time.current)
+puts "Creating Treatments..."
 
-puts "Seed data created"
+# Treatments for appt2 (Pichula - Cat - In Progress - 1 week ago)
+Treatment.create!(
+  appointment: appt2, 
+  name: "Annual Rabies Vaccination", 
+  medication: "Rabvac 3", 
+  dosage: "1 mL", 
+  administered_at: 1.week.ago,
+  clinical_notes: %Q(
+    <h2>Vaccination Record</h2>
+    <p>The annual rabies booster was administered. The patient <strong>did not show</strong> any immediate adverse reactions to the injection.</p>
+    <ul>
+      <li>Vital signs: Stable</li>
+      <li>Body Temperature: 38.5°C</li>
+    </ul>
+    <p>Owner advised to monitor for lethargy over the next 24 hours.</p>
+  )
+)
+
+Treatment.create!(
+  appointment_id: appt2.id,
+  name: "General Checkup & Deworming",
+  medication: "Broad-spectrum Dewormer",
+  dosage: "1 tablet",
+  administered_at: 1.week.ago,
+  clinical_notes: %Q(
+    <h1>Annual Checkup: Pelusa</h1>
+    <p>The feline patient is in <strong>good general condition</strong> and appears very energetic.</p>
+    <ul>
+      <li>Current weight: 5kg</li>
+      <li>Vaccination schedule: Up to date</li>
+      <li>Coat: Shiny and free of ectoparasites</li>
+    </ul>
+    <p><em>Extra note:</em> Oral dewormer was successfully administered hidden in wet food.</p>
+  )
+)
+
+# Treatments for appt3 (Folagor - Rabbit - Completed - 3 days ago)
+Treatment.create!(
+  appointment: appt3, 
+  name: "Wound Care and Dressing", 
+  medication: "Sterile Saline & Betadine", 
+  dosage: "Cleanse 2x daily", 
+  administered_at: 3.days.ago,
+  clinical_notes: %Q(
+    <h1>Injury Treatment: Folagor</h1>
+    <p>The rabbit presented a superficial laceration on the right hind leg, likely due to a cage accident.</p>
+    <ol>
+      <li>Deep cleaning with physiological saline.</li>
+      <li>Applied povidone-iodine solution.</li>
+      <li>Applied light bandage to prevent licking/biting.</li>
+    </ol>
+    <p><strong>Strict rest</strong> is recommended for at least 3 days to ensure proper healing.</p>
+  )
+)
+
+Treatment.create!(
+  appointment: appt3, 
+  name: "Pain Management", 
+  medication: "Meloxicam", 
+  dosage: "0.2 mg/kg", 
+  administered_at: 3.days.ago,
+  clinical_notes: %Q(
+    <h2>Analgesic Control</h2>
+    <p>Prescribed for wound pain management. Administer only if the patient shows signs of severe discomfort (e.g., teeth grinding or constant hunched posture).</p>
+  )
+)
+
+# Treatments for appt5 (Whatley - Cat - Completed - 2 weeks ago)
+Treatment.create!(
+  appointment: appt5, 
+  name: "Dermatological Treatment", 
+  medication: "Corticosteroid Ointment", 
+  dosage: "Apply thin layer daily", 
+  administered_at: 2.weeks.ago,
+  clinical_notes: %Q(
+    <h1>Dermatology Evaluation: Whatley</h1>
+    <p>Observed areas of alopecia and severe redness in the abdominal region.</p>
+    <ul>
+      <li><strong>Presumptive Diagnosis:</strong> Severe atopic dermatitis.</li>
+      <li><strong>Prognosis:</strong> Guarded. If the treatment is not followed daily, secondary infections could become systemic.</li>
+    </ul>
+    <p>Use of an <strong>Elizabethan collar is mandatory</strong> 24/7 during the first week.</p>
+  )
+)
+
+puts "✅ Seed data created successfully!"

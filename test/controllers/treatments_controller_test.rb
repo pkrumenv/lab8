@@ -11,7 +11,7 @@ class TreatmentsControllerTest < ActionDispatch::IntegrationTest
   test "should create treatment with valid params" do
     assert_difference("Treatment.count", 1) do
       # Fíjate cómo la URL necesita el objeto @appointment
-      post appointment_treatments_url(@appointment), params: { treatment: { name: "Antibiotic", administered_at: Time.current } }
+      post appointment_treatments_url(@appointment), params: { treatment: { name: "Antibiotic", administered_at: Time.current, notes: "All good" } }
     end
     assert_redirected_to appointment_url(@appointment) # Redirige al padre
     assert_not_nil flash[:notice]

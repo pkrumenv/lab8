@@ -26,7 +26,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
           name: "Buddy", 
           species: "Dog", 
           breed: "Golden Retriever", 
-          weight: 25.5, 
+          weight: 5, 
           date_of_birth: "2023-01-15",
           owner_id: @owner.id 
         } 

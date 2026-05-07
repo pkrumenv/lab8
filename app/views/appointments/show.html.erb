@@ -44,17 +44,20 @@
         <th>Dosage</th>
         <th>Administered At</th>
         <th>Notes</th>
-        <th>Actions</th> </tr>
+        <th>Actions</th> 
+      </tr>
     </thead>
     <tbody>
-      <% @appointment.treatments.each do |treatment| %>
+      <% @treatments.each do |treatment| %>
         <% if treatment.persisted? %>
           <tr>
             <td class="fw-bold"><%= treatment.name %></td>
             <td><%= treatment.medication %></td>
             <td><%= treatment.dosage %></td>
             <td><%= treatment.administered_at.strftime("%I:%M %p") %></td>
-            <td class="text-muted small"><%= treatment.notes %></td>
+            
+            <td><%= treatment.clinical_notes %></td>
+            
             <td>
               <div class="d-flex gap-2">
                 <%= link_to 'Edit', edit_appointment_treatment_path(@appointment, treatment), class: "btn btn-sm btn-outline-primary" %>
@@ -65,7 +68,7 @@
         <% end %>
       <% end %>
       
-      <% if @appointment.treatments.empty? %>
+      <% if @treatments.empty? %>
         <tr>
           <td colspan="6" class="text-center text-muted fst-italic">No treatments recorded for this appointment.</td>
         </tr>
@@ -73,6 +76,8 @@
     </tbody>
   </table>
 </div>
+
+
 
 <div class="d-flex gap-2 mt-4">
   <%= link_to 'Edit Appointment', edit_appointment_path(@appointment), class: "btn btn-warning" %>

@@ -17,5 +17,19 @@
     <%= f.collection_select :owner_id, Owner.all, :id, :last_name, 
         { prompt: "Select Owner" }, { class: "form-select" } %>
   </div>
+  
+  <div class="mb-3">
+    <%= f.label :photo, "Foto de la mascota", class: "form-label" %>
+  
+    <% if pet.photo.attached? && pet.persisted? %>
+      <div class="mb-2">
+        <p class="small text-muted">Foto actual:</p>
+        <%= image_tag pet.photo.variant(resize_to_limit: [100, 100]), class: "img-thumbnail d-block" %>
+      </div>
+    <% end %>
+
+    <%= f.file_field :photo, class: "form-control" %>
+  </div>
+
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

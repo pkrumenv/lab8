@@ -6,6 +6,7 @@
 <table class="table table-hover">
   <thead class="table-dark">
     <tr>
+      <th>Photo</th>
       <th>Name</th>
       <th>Species</th>
       <th>Owner</th>
@@ -15,6 +16,13 @@
   <tbody>
     <% @pets.each do |pet| %>
       <tr>
+        <td>
+          <% if pet.photo.attached? %>
+            <%= image_tag pet.photo.variant(resize_to_fill: [60, 60]), class: "rounded-circle border" %>
+          <% else %>
+            <div class="bg-light rounded-circle border d-inline-block" style="width: 60px; height: 60px;"></div>
+          <% end %>
+        </td>
         <td class="fw-bold"><%= pet.name %></td>
         <td><%= pet.species %></td>
         <td><%= pet.owner.last_name %></td>
