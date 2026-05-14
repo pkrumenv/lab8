@@ -5,14 +5,14 @@ Appointment.destroy_all
 Pet.destroy_all
 Owner.destroy_all
 Vet.destroy_all
+User.destroy_all
 
-puts "Creando Owners..."
+puts "Creating Owners..."
 owner1 = Owner.create!(first_name: "Matias", last_name: "Recabarren", email: "matre@example.com", phone: "123456789", address: "Calle 65")
 owner2 = Owner.create!(first_name: "Max", last_name: "Garcia", email: "magar@example.com", phone: "987654321", address: "Calle 51")
 owner3 = Owner.create!(first_name: "Andres", last_name: "Howard", email: "anhow@example.com", phone: "456123789", address: "Calle 70")
 
-puts "Creando Pets..."
-# Nota: Especies en minúscula para pasar la validación
+puts "Creating Pets..."
 pet1 = owner1.pets.create!(name: "Advincula", species: "dog", breed: "Pug", date_of_birth: "2020-01-01", weight: 25)
 pet2 = owner1.pets.create!(name: "Pelusa", species: "cat", breed: "Black", date_of_birth: "2019-05-10", weight: 5)
 pet3 = owner2.pets.create!(name: "Folagor", species: "rabbit", breed: "Mini Lop", date_of_birth: "2021-03-15", weight: 2)
@@ -23,12 +23,11 @@ pet1.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'pug.webp
 pet2.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'gato.webp')), filename: 'gato.webp', content_type: 'image/webp')
 pet4.photo.attach(io: File.open(Rails.root.join('db', 'seeds', 'pets', 'salchicha.webp')), filename: 'salchicha.webp', content_type: 'image/webp')
 
-puts "Creando Vets..."
+puts "Creating Vets..."
 vet1 = Vet.create!(first_name: "Juan", last_name: "Perez", email: "jupe@vet.com", phone: "111111111", specialization: "General")
 vet2 = Vet.create!(first_name: "Felipe", last_name: "De la Noi", email: "fede@vet.com", phone: "222222222", specialization: "Surgery")
 
 puts "Creando Appointments..."
-# Nota: Status usa los nombres simbólicos del Enum. Fechas variadas para probar los scopes upcoming/past.
 appt1 = Appointment.create!(pet: pet1, vet: vet1, date: 2.days.from_now, reason: "Checkup", status: :scheduled)
 appt2 = Appointment.create!(pet: pet2, vet: vet1, date: 1.week.ago, reason: "Vaccination", status: :in_progress)
 appt3 = Appointment.create!(pet: pet3, vet: vet2, date: 3.days.ago, reason: "Injury", status: :completed)
@@ -37,7 +36,6 @@ appt5 = Appointment.create!(pet: pet5, vet: vet1, date: 2.weeks.ago, reason: "De
 
 puts "Creating Treatments..."
 
-# Treatments for appt2 (Pichula - Cat - In Progress - 1 week ago)
 Treatment.create!(
   appointment: appt2, 
   name: "Annual Rabies Vaccination", 
@@ -73,7 +71,6 @@ Treatment.create!(
   )
 )
 
-# Treatments for appt3 (Folagor - Rabbit - Completed - 3 days ago)
 Treatment.create!(
   appointment: appt3, 
   name: "Wound Care and Dressing", 
@@ -104,7 +101,6 @@ Treatment.create!(
   )
 )
 
-# Treatments for appt5 (Whatley - Cat - Completed - 2 weeks ago)
 Treatment.create!(
   appointment: appt5, 
   name: "Dermatological Treatment", 
@@ -122,4 +118,31 @@ Treatment.create!(
   )
 )
 
-puts "✅ Seed data created successfully!"
+User.create!(
+  first_name: "Admin",
+  last_name: "System",
+  email: "admin@vet.com",
+  password: "password123",
+  password_confirmation: "password123",
+  role: :admin
+)
+
+User.create!(
+  first_name: "Doctor",
+  last_name: "Perez",
+  email: "perez@vet.com",
+  password: "password123",
+  password_confirmation: "password123",
+  role: :vet
+)
+
+User.create!(
+  first_name: "Pepe",
+  last_name: "Pupi",
+  email: "owner@vet.com",
+  password: "password123",
+  password_confirmation: "password123",
+  role: :owner
+)
+
+puts "Seed data created successfully!"
