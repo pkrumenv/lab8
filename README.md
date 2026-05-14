@@ -21,9 +21,9 @@ To get the application up and running, follow these steps:
 
    | Role   | Name           | Email                 | Password      |
    |--------|----------------|-----------------------|---------------|
-   | Admin  | Admin System   | admin@vetclinic.com   | password123   |
-   | Vet    | Doctor Perez   | vet@vetclinic.com     | password123   |
-   | Owner  | John Doe       | owner@vetclinic.com   | password123   |
+   | Admin  | Admin System   | admin@vet.com   | password123   |
+   | Vet    | Doctor Perez   | perez@vet.com   | password123   |
+   | Owner  | Pepe Pupi      | owner@vet.com   | password123   |
 
 3. **Run the application:**
    Since this project uses `esbuild`, you must use `bin/dev` to compile JavaScript and CSS assets alongside the server.
